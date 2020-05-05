@@ -69,6 +69,8 @@ jobs:
 #           NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
       - name: Publish to npm
         uses: pascalgn/npm-publish-action@1.2.0
+        with:
+          commit_pattern: "^Update (\\S+)"
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
 
