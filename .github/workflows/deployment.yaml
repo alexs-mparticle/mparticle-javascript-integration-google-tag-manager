@@ -59,20 +59,22 @@ jobs:
           name: dist-files
           path: dist/*
 
-      - name: Display structure of downloaded files
-        run: ls -R
-        working-directory: dist
+      - name: Download build files
+        uses: actions/download-artifact@v2
+        with:
+          name: build-files
+          path: build/*
 
-#       - name: Commit changes
-#         uses: EndBug/add-and-commit@v4
-#         with:
-#           author_name: mParticle Automation
-#           author_email: developers@mparticle.com
-#           message: "Generate latest bundle"
-#           force: true
-#           add: "dist/ build/"
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v4
+        with:
+          author_name: mParticle Automation
+          author_email: developers@mparticle.com
+          message: "Generate latest bundle"
+          force: true
+          add: "dist/ build/"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 #   publish-npm:
 #     needs: build
