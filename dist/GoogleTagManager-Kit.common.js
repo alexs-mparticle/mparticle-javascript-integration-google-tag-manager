@@ -79,6 +79,7 @@ Common.prototype.buildConsentObject = function(event) {
 };
 
 Common.prototype.send = function(_attributes) {
+    console.log('sending event');
     var payload = {};
     var mpData = {};
     var attributes = _attributes || {};
