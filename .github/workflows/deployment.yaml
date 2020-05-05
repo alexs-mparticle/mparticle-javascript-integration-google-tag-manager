@@ -36,25 +36,14 @@ jobs:
       with:
         name: build-files
         path: build/*
-    
+
     - name: Upload dist files
       uses: actions/upload-artifact@v2
       with:
         name: dist-files
         path: dist/*
 
-#     - name: Commit changes
-#       uses: EndBug/add-and-commit@v4
-#       with:
-#         author_name: mParticle Automation
-#         author_email: developers@mparticle.com
-#         message: "Generate latest bundle"
-#         force: true
-#         add: "dist/ build/"
-#       env:
-#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  publish-npm:
+  commit:
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -63,16 +52,48 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: https://registry.npmjs.org/
+
+      - name: Download dist files
+        uses: actions/download-artifact@v2
+        with:
+          name: dist-files
+          path: dist/*
+
+      - name: Display structure of downloaded files
+        run: ls -R
+        working-directory: dist
+
+#       - name: Commit changes
+#         uses: EndBug/add-and-commit@v4
+#         with:
+#           author_name: mParticle Automation
+#           author_email: developers@mparticle.com
+#           message: "Generate latest bundle"
+#           force: true
+#           add: "dist/ build/"
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+#   publish-npm:
+#     needs: build
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: actions/setup-node@v1
+#         with:
+#           node-version: ${{ matrix.node-version }}
+#           registry-url: https://registry.npmjs.org/
+# ---
 #       - run: npm ci
 #       - run: npm publish
 #         env:
 #           NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
-
-      - name: Publish to npm
-        uses: pascalgn/npm-publish-action@1.2.0
-        with:
-          commit_pattern: "^Update version to (\\S+)"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
+# ---
+#       - name: Publish to npm
+#         uses: pascalgn/npm-publish-action@1.2.0
+#         with:
+#           commit_pattern: "^Update version to (\\S+)"
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#           NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
 
