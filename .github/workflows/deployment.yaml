@@ -43,20 +43,26 @@ jobs:
         name: dist-files
         path: dist/*
 
-    - name: Commit changes
-      uses: EndBug/add-and-commit@v4
-      with:
-        author_name: mParticle Automation
-        author_email: developers@mparticle.com
-        message: "Generate latest bundle"
-        force: true
-        add: "dist/ build/"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#     - name: Commit changes
+#       uses: EndBug/add-and-commit@v4
+#       with:
+#         author_name: mParticle Automation
+#         author_email: developers@mparticle.com
+#         message: "Generate latest bundle"
+#         force: true
+#         add: "dist/ build/"
+#       env:
+#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Publish to npm
-      uses: pascalgn/npm-publish-action@1.2.0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-
+  publish-npm:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+          registry-url: https://registry.npmjs.org/
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
