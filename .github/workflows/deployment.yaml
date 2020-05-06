@@ -52,9 +52,8 @@ jobs:
         id: check
         uses: EndBug/version-check@v1.3.0
 
-#       - name: Log when unchanged
-#         if: steps.check.outputs.changed != 'true'
-#         run: 'echo "No version change :/"
+      - name: Log when unchanged
+        run: 'echo "Steps: ${{ steps.check.outputs }}"'
 
 
 #   check-package:
