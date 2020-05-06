@@ -52,8 +52,15 @@ jobs:
         id: check
         uses: EndBug/version-check@v1.3.0
 
-      - name: Log when unchanged
-        run: 'echo "Steps: ${{ steps.check.outputs }}"'
+      - name: Log version
+        run: 'echo "Version: ${{ steps.check.outputs.version }}"'
+
+      - name: Log commit
+        run: 'echo "Commit: ${{ steps.check.outputs.commit }}"'
+
+      - name: Log changed
+        run: 'echo "Changed?: ${{ steps.check.outputs.changed }}"'
+
 
 
 #   check-package:
