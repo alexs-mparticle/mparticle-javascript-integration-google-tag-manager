@@ -43,14 +43,14 @@ jobs:
         name: dist-files
         path: dist
 
-#   check-version:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - uses: actions/checkout@v2
+  check-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
 
-#       - name: Version Check
-#         id: check
-#         uses: EndBug/version-check@v1.3.0
+      - name: Version Check
+        id: check
+        uses: EndBug/version-check@v1.3.0
 
 #       - name: Log when unchanged
 #         if: steps.check.outputs.changed != 'true'
