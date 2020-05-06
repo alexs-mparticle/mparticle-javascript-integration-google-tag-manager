@@ -9,39 +9,39 @@ on:
       - master
 
 jobs:
-  build:
+#   build:
 
-    runs-on: ubuntu-latest
+#     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [10.x, 12.x]
+#     strategy:
+#       matrix:
+#         node-version: [10.x, 12.x]
 
-    steps:
-    - uses: actions/checkout@v2
+#     steps:
+#     - uses: actions/checkout@v2
     
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
+#     - name: Use Node.js ${{ matrix.node-version }}
+#       uses: actions/setup-node@v1
+#       with:
+#         node-version: ${{ matrix.node-version }}
     
-    - run: npm ci
+#     - run: npm ci
     
-    - run: npm run build --if-present
+#     - run: npm run build --if-present
     
-    - run: npm test
+#     - run: npm test
     
-    - name: Upload build files
-      uses: actions/upload-artifact@v2
-      with:
-        name: build-files
-        path: build
+#     - name: Upload build files
+#       uses: actions/upload-artifact@v2
+#       with:
+#         name: build-files
+#         path: build
 
-    - name: Upload dist files
-      uses: actions/upload-artifact@v2
-      with:
-        name: dist-files
-        path: dist
+#     - name: Upload dist files
+#       uses: actions/upload-artifact@v2
+#       with:
+#         name: dist-files
+#         path: dist
 
   check-version:
     runs-on: ubuntu-latest
@@ -51,10 +51,6 @@ jobs:
       - name: Version Check
         id: check
         uses: EndBug/version-check@v1.3.0
-
-      - name: Log when changed
-        if: steps.check.outputs.changed == 'true'
-        run: 'echo "Version change found in commit ${{ steps.check.outputs.commit }}! New version: ${{ steps.check.outputs.version }} (${{ steps.check.outputs.type }})"'
 
       - name: Log when unchanged
         if: steps.check.outputs.changed != 'true'
