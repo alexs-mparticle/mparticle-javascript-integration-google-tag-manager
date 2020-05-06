@@ -61,7 +61,9 @@ jobs:
       - name: Log changed
         run: 'echo "Changed?: ${{ steps.check.outputs.changed }}"'
 
-
+      - name: Log if changed
+        if: steps.check.outputs.changed != 'true'
+        run: 'echo "No version change :/"'
 
 #   check-package:
 #     runs-on: ubuntu-latest
