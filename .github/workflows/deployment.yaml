@@ -63,7 +63,7 @@ jobs:
 
       - name: Log if changed
         if: steps.check.outputs.changed != 'true'
-        run: exit 1
+        run: 'echo "No version change :/" && exit 1'
 
 #   check-package:
 #     runs-on: ubuntu-latest
