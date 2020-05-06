@@ -43,26 +43,30 @@ jobs:
         name: dist-files
         path: dist
 
+  check-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Version Check
+        id: check
+        uses: EndBug/version-check@v1.3.0
+
+
 #   check-package:
 #     runs-on: ubuntu-latest
 #     steps:
 #       - uses: actions/checkout@v2
-
-#       - name: Use Node.js ${{ matrix.node-version }}
-#         uses: actions/setup-node@v1
-#         with:
-#           node-version: ${{ matrix.node-version }}
 #       - name: Package Version Check Action
 #         uses: technote-space/package-version-check-action@v1.5.2
 
-  checkPublish:
-    name: Check npm publish
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: technote-space/can-npm-publish-action@v1.1.1
-        with:
-          VERBOSE: true
+#   checkPublish:
+#     name: Check npm publish
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: technote-space/can-npm-publish-action@v1.1.1
+#         with:
+#           VERBOSE: true
 
 
 #   commit:
